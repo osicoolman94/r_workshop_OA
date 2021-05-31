@@ -318,6 +318,7 @@ length). Unsurprisingly, we can do that with the function `length()`.
 
 ```{r}
 # Find out how many contestants there are
+length(hotdog_names)
 ```
 
 A function in `R` always comes with a `()`.
@@ -328,15 +329,53 @@ Try out a few other functions. Here are some you could try:
 
 2.1) `max()` gives you the maximum value in a vector. What do you think `min()` does? Use both on `hotdog_2018` and `hotdog_2019`.
 
+```{r}
+max(hotdog_2018)
+max(hotdog_2019)
+min(hotdog_2018)
+min(hotdog_2019)
+```
+
+
 2.2) Use `table()` on `hotdog_genders`. What do you get?
+
+```{r}
+table(hotdog_genders)
+```
+
 
 2.3) Use `mean()` and `sd()` on `hotdog_2018` and `hotdog_2019`. What do you get?
 
+```{r}
+mean(hotdog_2018)
+sd(hotdog_2018)
+mean(hotdog_2019)
+sd(hotdog_2019)
+```
+
 2.4) Use `summary()` on `hotdog_2018` and `hotdog_2019`. What is the difference to using `mean()` and `sd()`?
+
+```{r}
+summary(hotdog_2018)
+summary(hotdog_2019)
+```
+
 
 2.5) Use `head()` and `tail()` on either of the vectors. What do these functions do?
 
+```{r}
+head(hotdog_2018)
+tail(hotdog_2018)
+head(hotdog_2019)
+tail(hotdog_2019)
+```
+
 2.6) How many hotdogs were eaten in total in the year 2019? Use the function `sum()`.
+
+```{r}
+sum(hotdog_2019)
+```
+
 
 ## More arguments
 
@@ -354,6 +393,11 @@ head(hotdog_names)
 ```
 
 3.2) What do you think will happen when the second argument is larger than the number of hot dog contestants (`r length(hotdog_names)`)? Try it.
+
+```{r}
+head(hotdog_names, 12)
+```
+
 
 We can see that arguments have a **position** in the function - for `head()`, the data belongs at the first position, and the number of elements we want to display comes second.
 `head()` will be unhappy if we just switch the order around:
@@ -428,9 +472,24 @@ One common situation is this: You want to get the last element in a vector, but 
 
 4.3) How would you get the last name of the hot dog contestants using the `tail()` function we saw above?
 
+```{r}
+tail(hotdog_names)[6]
+```
+
+
 4.4) Remember what `length(hotdog_names)` returns. How can you use that for indexing?
 
+```{r}
+hotdog_names[length(hotdog_names)]
+```
+
+
 4.5) How would you get the name of the person who ate the most hot dogs in 2019? Use an index and the function `max()`! You will have to use two different vector here: `hotdog_names` and `hotdog_2019`.
+
+```{r}
+hotdog_names[hotdog_2019 == max(hotdog_2019)]
+```
+
 
 There is more that can be done with indexing when we use logical comparisons.
 Here is how this works: We have a vector called `numbers` that contains the number 1 - 4.
@@ -482,10 +541,18 @@ In fact, RStudio is already giving me a warning that something is wrong with my 
 
 4.6) Can you write code that gives you all elements larger than 6 in the vector `1:10`?
 
+```{r}
+numbers <- 1:10
+numbers[numbers > 6]
+```
+
+
 How can we use indexing with logical vectors in a more useful way?
 Let's get back to our hot dog examples.
 
 4.7) Can you create a vector that is `TRUE` when the participant ate more hot dogs in 2019 than in 2018 and `FALSE` when s/he didn't? Remember that the results from 2018 are stored in `hotdog_2018` and the results from 2019 are stored in `hotdog_2019`.
+
+
 
 We now would like to find out **which** participants improved from 2018 to 2019.
 We can achieve this using indices.
@@ -497,6 +564,11 @@ We can achieve this using indices.
 4.10) Get the hot dog results **only for the men** in 2019 and save the results in a variable. (Think of a good name!) Do the same for the women's results in 2018.
 
 4.11) Remember that you can combine logical comparisons using `&` and `|`. Can you find a way to get the name of the **woman** who ate the **most hot dogs in 2019** using `&` and `max()`? You will need to use several of the vectors in our environment for that!
+
+```{r}
+hotdog_names[hotdog_2019 == max(hotdog_2019[hotdog_genders == 'female'])]
+```
+
 
 ## Missing values
 
@@ -540,15 +612,60 @@ Can you use `na.rm = TRUE` to change their behaviour?
 
 5.1) `sd()`
 
+```{r}
+sd(hotdog_2019)
+sd(c(hotdog_2019,NA))
+sd(c(hotdog_2019,NA), na.rm = TRUE)
+```
 5.2) `min()` and `max()`
 
+```{r}
+min(hotdog_2019)
+min(c(hotdog_2019,NA))
+min(c(hotdog_2019,NA), na.rm = TRUE)
+
+max(hotdog_2019)
+max(c(hotdog_2019,NA))
+max(c(hotdog_2019,NA), na.rm = TRUE)
+```
 5.3) `summary()`
+
+```{r}
+summary(hotdog_2019)
+summary(c(hotdog_2019,NA))
+summary(c(hotdog_2019,NA), na.rm = TRUE)
+```
 
 5.4) `table()`
 
+```{r}
+table(hotdog_2019)
+table(c(hotdog_2019,NA))
+table(c(hotdog_2019,NA), na.rm = TRUE)
+```
+
+
 5.5) `head()` and `tail()`
 
+```{r}
+head(hotdog_2019)
+head(c(hotdog_2019,NA))
+head(c(hotdog_2019,NA), na.rm = TRUE)
+
+tail(hotdog_2019)
+tail(c(hotdog_2019,NA))
+tail(c(hotdog_2019,NA), na.rm = TRUE)
+```
+
+
 5.6) `length()`
+
+```{r}
+length(hotdog_2019)
+length(c(hotdog_2019,NA))
+length(c(hotdog_2019,NA), na.rm = TRUE)
+```
+
 
 The situation also gets interesting when logicals come to the picture.
 Consider the following examples:
