@@ -39,7 +39,7 @@ We start with loading the `tidyverse` and preprocessing our data.
 
 ```{r}
 library(tidyverse)
-source("05_nerd_preprocessing.R")
+source("nerd_preprocessing.R")
 ```
 
 By the way, I am sorry for this wild data fishing and multiple-testing expedition.
@@ -55,6 +55,8 @@ Since we will be using this data some more, we save it in a separate variable.
 
 ```{r}
 # create a variable called "nerd_fm" that only contains men and women
+nerd_fm <- nerd_red %>% 
+  filter(gender %in% c('male', 'female'))
 ```
 
 Now for the t-test.
@@ -70,11 +72,17 @@ Which means we're back to our good old dollar operator.
 ```{r}
 # run a t-test with the nerd score as dependent variable and gender as grouping variable
 # use the formula notation
+t.test(nerd_fm$nerd_score ~ nerd_fm$gender)
 ```
 
 As you can see, the results are a little bit messy - but we get a lot of information.
 
 1.1) Quick reminder: Calculate the mean and the standard deviation of the nerd score for each gender and compare the group means with the otuput of the t-test.
+
+```{r}
+
+```
+
 
 You may be wondering why the degrees of freedom are not an even number.
 That is because within the `R` community, the default t-test option is the Welch's t-test.
